@@ -1,0 +1,27 @@
+{{>_container}}
+<h3 class="mb-4">Adicionar Curso</h3>
+
+<div class="card">
+    <div class="card-body">
+        <form action="/usuario/area/curso/nova" method="post">
+            <label for="">Nome: </label>
+            <input type="text" name="nome" placeholder="Nome do curso" required class="form-control">
+            <label for="">Slug: </label>
+            <input type="text" name="slug" placeholder="slug do curso" required class="form-control">
+            <label for="">Area: </label>
+            <select name="area" id="" required class="custom-select">
+
+                {{#each area}}
+                {{#each this}}
+                {{#if nome}}
+                <option value="{{_id}}">{{nome}}</option>
+                {{/if}}
+                {{/each}}
+                {{else}}
+                <option value="0">Nenhuma area registrada</option>
+                {{/each}}
+            </select>
+            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Cadastrar</button>
+        </form>
+    </div>
+</div>

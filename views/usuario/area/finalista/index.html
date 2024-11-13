@@ -1,0 +1,77 @@
+{{>_container}}
+<div class="container mt-5">
+    <h1 class="mb-4">Finalistas  </h1>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Pesquisar">
+        </div>
+        <div class="col-auto">
+            <a href="/usuario/finalista_add/{{curso_id}}"><button class="btn" style="background-color: #2cb34e; color: #fff;">Novo Finalista</button></a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>BI</th>
+                <th>Telef</th>
+                <th>Media</th>
+                <th>Trabalho</th>
+                <th>Faculdade</th>
+                <th>Mestrado</th>
+                <th>Data Termino</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each finalista}}
+             {{#each this}}
+             {{#if nome}}
+            <tr>
+                <td>{{nome}}</td>
+                <td>{{bi}}</td>
+                <td>{{tel}}</td>
+                <td>{{media}}</td>
+                <td>{{trabalho}}</td>
+                <td>{{faculdade}}</td>
+                <td>{{mestrado}}</td>
+                <td>{{end}}</td>
+                
+                <td>
+                    <form action="/usuario/area/finalista/delete" method="post">
+                        <input type="hidden" name="id" value="{{_id}}">
+                        <a href="/usuario/finalista/edit/{{_id}}"><span class="status delivered btn btn-success">Editar</span></a>
+                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+
+            {{else}}
+            <tr>
+                <h3>Nenhum finalista registrado</h3>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+                <a href="#" class="page-link" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">1</a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">2</a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">Proximo</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>

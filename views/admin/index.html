@@ -1,0 +1,66 @@
+{{>_container}}
+<div class="container mt-5">
+    <h1 class="mb-4">Controle de Acesso</h1>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Pesquisar">
+        </div>
+        <div class="col-auto">
+            <a href="/usuario/area/add"><button class="btn"  style="background-color: #2cb34e; color: #fff;">Pesquisar</button></a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Permisao</th>
+                <th>Data</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each user}}
+             {{#each this}}
+             {{#if nome}}
+            <tr>
+                <td>{{nome}}</td>
+                <td>{{email}}</td>
+                <td>{{eAdmin}}</td>
+                <td>{{data}}</td>
+                <td>
+                    <form action="/usuario/controll/delete" method="post">
+                        <input type="hidden" name="id" value="{{_id}}">
+                        <a href="/usuario/controll/edit/{{_id}}"><span class="status delivered btn btn-success">Editar</span></a>
+                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+
+            {{else}}
+            <h3>Nenhum usuario registrado</h3>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+                <a href="#" class="page-link" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">1</a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">2</a>
+            </li>
+            <li class="page-item disabled">
+                <a href="#" class="page-link">Proximo</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,30 @@
+{{>_container}}
+<h3 class="mb-4">Alterar Acesso</h3>
+
+{{#each user}}
+
+{{#if nome}}
+<div class="card">
+    <div class="card-body">
+        <form action="/usuario/controll/edit" method="post">
+            <input type="hidden" name="id" value="{{_id}}">
+            <label for="">Utilizador :  {{nome}} </label>
+            <br>
+            <div class="form-group">
+                <label for="">Permissao</label>
+              <select class="form-control" name="nivel" id="">
+                <option value="">escolher o tipo de acesso</option>
+                <option value="3">TOTAL</option>
+                <option value="2">LER E ESCREVER</option>
+                <option value="1">LER</option>
+                <option value="0">SUSPENDER</option>
+              </select>
+            </div>
+            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Alterar</button>
+           
+    </div>
+</div>
+
+{{/if}}
+
+{{/each}}

@@ -1,0 +1,23 @@
+
+{{>_container}}
+<h3 class="mb-4">Editar Area</h3>
+
+{{#each area}}
+
+{{#if nome}}
+<div class="card">
+    <div class="card-body">
+        <form action="/usuario/area/edit" method="post">
+            <input type="hidden" name="id" value="{{_id}}">
+            <label for="">Area: </label>
+            <input type="text" name="nome" placeholder="Nome da area" required class="form-control" value="{{nome}}">
+            <label for="">NIF: </label>
+            <input type="text" name="slug" placeholder="slud da area" required class="form-control" value="{{slug}}">
+            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Salvar</button>
+        </form>
+    </div>
+</div>
+
+{{/if}}
+
+{{/each}}

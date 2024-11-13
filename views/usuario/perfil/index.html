@@ -1,0 +1,29 @@
+{{>_container}}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Minha Conta</h1>
+    {{#each user}}
+    {{#if nome}}
+   <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Meu Nome:</h5>
+        <p class="card-text">{{nome}} <a href="/usuario/perfil/alterName" class="">   alterar</a></p>
+        <h5 class="card-title">Email:</h5>
+        <p class="card-text">{{email}}<a href="/usuario/perfil/alterName" class="">   alterar</a></p>
+        <h5 class="card-title">Senha:</h5>
+        <p class="card-text">******** <a href="/usuario/perfil/password" class="">   alterar</a></p>
+    
+    </div>
+   </div>
+   {{/if}}
+   {{/each}}
+   <br>
+   <div class="card">
+    <div class="card-body">
+        <h4 class="card-title"> Avancado</h5>
+        <h5 class="card-title"> Permissao</h5>
+        <p class="card-text">Admin</p>
+        <h5 class="card-title">Controle de Usuarios:</h5>
+        <p class="card-text"><a href="/usuario/controll"><button class="btn btn-success">Modificar</button></a></p>
+    </div>
+   </div>
+</div>

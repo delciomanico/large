@@ -1,0 +1,23 @@
+
+{{>_container}}
+<h3 class="mb-4">Meus Dados</h3>
+
+{{#each user}}
+
+{{#if nome}}
+<div class="card">
+    <div class="card-body">
+        <form action="/usuario/perfil/edit" method="post">
+            <input type="hidden" name="id" value="{{_id}}">
+            <label for="">Nome do Usuario: </label>
+            <input type="text" name="nome" placeholder="Nome do Usuario" required class="form-control" value="{{nome}}">
+            <label for="">Email: </label>
+            <input type="email" name="email" placeholder="Email do usuario" required class="form-control" value="{{email}}">
+            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Salvar</button>
+        </form>
+    </div>
+</div>
+
+{{/if}}
+
+{{/each}}

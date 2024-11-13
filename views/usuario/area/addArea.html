@@ -1,0 +1,13 @@
+{{>_container}}
+<h3 class="mb-4">Adicionar Area</h3>
+<div class="card">
+    <div class="card-body">
+        <form action="/usuario/area/nova" method="post">
+            <label for="">Area: </label>
+            <input type="text" name="nome" placeholder="Nome da area" required class="form-control">
+            <label for="">Slug: </label>
+            <input type="text" name="slug" placeholder="Slug da area" required class="form-control">
+            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Cadastrar</button>
+        </form>
+    </div>
+</div>

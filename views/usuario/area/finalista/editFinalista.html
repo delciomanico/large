@@ -1,0 +1,58 @@
+{{>_container}}
+<h3 class="mb-4">Editar Finalista</h3>
+<div class="card">
+    {{#each finalista}}
+
+    {{#if nome}}
+    <div class="card-body">
+        <form action="/usuario/area/finalista/edit" method="post">
+            <input type="hidden" name="id" value="{{_id}}">
+            <label for="">Nome:</label>
+            <input type="text" name="nome" placeholder="Nome completo" required class="form-control" value="{{nome}}">
+            <label for="">BI: </label>
+            <input type="text" name="bi" placeholder="Numero do BI" required class="form-control" value="{{bi}}">
+            <label for="">Contacto: </label>
+            <input type="text" name="tel" placeholder="Numero de telefone"  class="form-control" value="{{tel}}">
+            <label for="">Data de inicio: </label>
+            <input type="date" name="start" id="" class="form-control" value="{{start}}" required data-="{{start}}">
+            <label for="">Data de termino: </label>
+            <input type="date" name="end" id="" class="form-control" value="{{end}}" required>
+            <label for="">Media final: </label>
+            <input type="number" name="media" id="" class="form-control" min="10" max="20" value="{{media}}">
+            <label for="">Curso: </label>
+            <select name="curso" id="" required class="custom-select">
+                
+                {{#each curso}}
+                
+                {{#if nome}}
+                <option value="{{_id}}">{{nome}}</option>
+                {{/if}}
+                {{else}}
+                <option value="0">Nenhum curso registrado</option>
+                {{/each}}
+            </select>
+            <label for="">Faculdade: </label>
+            <select name="faculdade" id=""  class="custom-select">
+                <option value=""></option>
+                <option value="sim">sim</option>
+                <option value="nao">nao</option>
+            </select>
+            <label for="">Mestrado: </label>
+            <select name="mestrado" id=""  class="custom-select">
+                <option value=""></option>
+                <option value="sim">sim</option>
+                <option value="nao">nao</option>
+            </select>
+            <label for="">Mercado de trabalho: </label>
+            <select name="trabalho" id=""  class="custom-select">
+                <option value=""></option>
+                <option value="sim">sim</option>
+                <option value="nao">nao</option>
+            </select>
+            {{/if}}
+            {{/each}}
+            
+            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Cadastrar</button>
+        </form>
+    </div>
+</div>
