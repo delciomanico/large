@@ -1,5 +1,5 @@
 {
-  "name": "agtfixed",
+  "name": "target",
   "version": "1.0.0",
   "main": "app.js",
   "dependencies": {
@@ -118,6 +118,7 @@
     "string-width-cjs": "^4.2.3",
     "strip-ansi": "^7.1.0",
     "strip-ansi-cjs": "^6.0.1",
+    "target": "file:",
     "toidentifier": "^1.0.1",
     "tr46": "^4.1.1",
     "type-is": "^1.6.18",

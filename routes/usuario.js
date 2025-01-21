@@ -265,7 +265,15 @@ router.post('/area/finalista/edit', eLog ,(req,res)=> {
     
 })
 
-
+router.get('/finalista/search_finalista', eRead, async (req, res) => {
+    const {bi, curso} = req.query;
+    try {
+      const results = await Aluno.find({ bi: new RegExp(bi, 'i'), curso: curso }); // Exemplo usando Mongoose
+      res.json(results);  // Retorna os resultados como JSON
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar o finalista' });
+    }
+});
 router.post('/area/finalista/nova', eLog ,(req,res)=>{
 
     erros = []

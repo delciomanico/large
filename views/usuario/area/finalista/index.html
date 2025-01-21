@@ -3,14 +3,17 @@
     <h1 class="mb-4">Finalistas  </h1>
     <div class="row mb-3">
         <div class="col">
-            <input type="text" class="form-control" placeholder="Pesquisar">
+            <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por BI">
+            
+            <input type="hidden" id="curso" class="form-control" value="{{curso_id}}" >
+            
         </div>
         <div class="col-auto">
             <a href="/usuario/finalista_add/{{curso_id}}"><button class="btn" style="background-color: #2cb34e; color: #fff;">Novo Finalista</button></a>
         </div>
     </div>
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="resultsTable">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -75,3 +78,48 @@
         </ul>
     </nav>
 </div>
+
+<script defer>
+    document.getElementById('searchInput').addEventListener('input', async function () {
+    const bi = document.getElementById('searchInput').value.trim();
+    const curso = document.getElementById('curso').value.trim();
+      // Verifica se os campos têm algum valor antes de construir a query
+    let queryString = `?bi=${bi}&curso=${curso}`;
+    
+
+
+    if (queryString != '') {
+      const response = await fetch(`/usuario/finalista/search_finalista${queryString}`);
+      const results = await response.json();
+  
+      const tableBody = document.getElementById('resultsTable').querySelector('tbody');
+      tableBody.innerHTML = ''; // Limpa os resultados anteriores
+      
+      results.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+                <td>${item.nome}</td>
+                <td>${item.bi}</td>
+                <td>${item.tel}</td>
+                <td>${item.media}</td>
+                <td>${item.trabalho}</td>
+                <td>${item.faculdade}</td>
+                <td>${item.mestrado}</td>
+                <td>${item.end}</td>
+                
+                <td>
+                    <form action="/usuario/area/finalista/delete" method="post">
+                        <input type="hidden" name="id" value="${item._id}">
+                        <a href="/usuario/finalista/edit/${item._id}"><span class="status delivered btn btn-success">Editar</span></a>
+                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    </form>
+                </td>
+        `;
+        tableBody.appendChild(row); 
+      });
+    } else {
+      document.getElementById('resultsTable').querySelector('tbody').innerHTML = '';
+    }
+  });
+  
+</script>
