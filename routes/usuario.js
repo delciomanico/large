@@ -202,13 +202,22 @@ router.post('/area/curso/nova', eLog ,(req,res)=>{
 
 /// ========= rotas de finalistas
 router.get('/area/finalista/:id', eRead ,(req,res)=>{
-    Aluno.find({curso: req.params.id}).then((aluno)=>{
+    Aluno.find({curso: req.params.id}).limit(150).then((aluno)=>{
+       
+
         if(aluno){
 
-            res.render('usuario/area/finalista/index',{curso_id: req.params.id, finalista: aluno})
+            const formattedUsers = aluno.map(alunos => ({
+                ...alunos.toObject(), // Converte o documento para objeto JS
+                start: alunos.start.toISOString().split('T')[0], // Formata a data
+                end: alunos.end.toISOString().split('T')[0], // Formata a data
+            }));
+            res.render('usuario/area/finalista/index',{curso_id: req.params.id, finalista: formattedUsers})
         }
+
     })
 })
+
 router.get('/finalista_add/:id',eLog , (req,res)=>{
     Curso.findById(req.params.id).then((curso)=>
     {
@@ -231,22 +240,33 @@ router.post('/area/finalista/delete', eLog , (req,res)=>{
 router.get('/finalista/edit/:id', eLog , (req,res)=> {
   
     Aluno.findById(req.params.id).populate('curso').then((a)=>{
-        res.render('usuario/area/finalista/editFinalista',{finalista: a})
+        const Start= a.start.toISOString().split('T')[0];
+        const End= a.end.toISOString().split('T')[0];
+        res.render('usuario/area/finalista/editFinalista',{finalista: a, Start, End})
     }).catch((erro)=>{
-        req.flash('error_msg', 'O finalista selecionado nao existe')
+        req.flash('error_msg', 'O finalista selecionado nao existe ')
         res.redirect('/usuario/area')
     })
 })
-router.post('/area/finalista/edit', eLog ,(req,res)=> {
+router.post('/area/finalista/edit', eLog , async (req,res)=> {
   
+     // Verificar se já existe um aluno com o processo informado (exceto o atual aluno)
+    const alunoExistente = await Aluno.findOne({processo: req.body.processo,});
+
+     if (alunoExistente) {
+        req.flash('error_msg', 'Numero de processo ja existe')
+        res.redirect('/usuario/area/finalista/'+req.body.curso)
+    }else{
     Aluno.findOne({_id: req.body.id}).then((a)=>{
             a.nome = req.body.nome,
+            a.processo = req.body.processo,
             a.bi = req.body.bi,
             a.tel = req.body.tel,
             a.media = req.body.media,
             a.start = req.body.start,
             a.end = req.body.end,
             a.curso = req.body.curso,
+            a.estagio = req.body.estagio,
             a.faculdade = req.body.faculdade,
             a.mestrado = req.body.mestrado,
             a.trabalho = req.body.trabalho
@@ -262,19 +282,29 @@ router.post('/area/finalista/edit', eLog ,(req,res)=> {
         req.flash('error_msg', 'Falha ao editar aluno '+error)
         res.redirect('/usuario/area')
     })
+}
     
 })
+
 
 router.get('/finalista/search_finalista', eRead, async (req, res) => {
     const {bi, curso} = req.query;
     try {
-      const results = await Aluno.find({ bi: new RegExp(bi, 'i'), curso: curso }); // Exemplo usando Mongoose
+        const query = { curso: curso };
+
+        query.$or = [];
+        query.$or.push({ processo: new RegExp(bi, 'i') });
+        query.$or.push({ bi: new RegExp(bi, 'i') });
+        const results = await Aluno.find(query);
+      //const results = await Aluno.find({curso: curso }, { $or: [{ processo: processo }, { bi:new RegExp(bi, 'i') }] }
+     // Exemplo usando Mongoose
       res.json(results);  // Retorna os resultados como JSON
     } catch (error) {
       res.status(500).json({ error: 'Erro ao buscar o finalista' });
     }
 });
-router.post('/area/finalista/nova', eLog ,(req,res)=>{
+
+router.post('/area/finalista/nova', eLog , async(req,res)=>{
 
     erros = []
 
@@ -290,27 +320,35 @@ router.post('/area/finalista/nova', eLog ,(req,res)=>{
     if(erros.length > 0){
         res.render("usuario/finalista/addFinalista", {erros: erros})
     }else{
-        
+             // Verificar se já existe um aluno com o processo informado (exceto o atual aluno)
+    const alunoExistente = await Aluno.findOne({processo: req.body.processo});
+
+    if (alunoExistente) {
+       req.flash('error_msg', 'Numero de processo ja existe')
+       res.redirect('/usuario/area/finalista/'+req.body.curso)
+   }else{
         new Aluno({
             nome: req.body.nome,
+            processo: req.body.processo,
             bi: req.body.bi,
             tel: req.body.tel,
             media: req.body.media,
             start: req.body.start,
             end: req.body.end,
             curso: req.body.curso,
+            estagio: req.body.estagio,
             faculdade: req.body.faculdade,
             mestrado: req.body.mestrado,
             trabalho: req.body.trabalho
         }).save().then(()=>{
             req.flash('success_msg', 'Aluno cadastrado com sucesso')
-            console.log("Area cadastrada")
             res.redirect('/usuario/area/finalista/'+ req.body.curso)
         }).catch((err)=>{
             req.flash('error_msg', 'erro ao criar, tente novamente')
             console.log("erro no cadastro . ", err)
             res.redirect('/usuario/area/finalista/'+ req.body.curso)
         })
+        }
     }
 
 })

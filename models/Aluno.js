@@ -7,9 +7,14 @@ const Aluno = Schema({
         type: String,
         required: true
     },
+    processo:{
+        type: String,
+        required: true,
+        unique: true,
+    },
     bi:{
         type: String,
-        required: true
+        required: false
     },
     tel:{
         type: String,
@@ -20,6 +25,10 @@ const Aluno = Schema({
         required: true
     },
     trabalho:{
+        type: String,
+        required: false
+    },
+    estagio:{
         type: String,
         required: false
     },

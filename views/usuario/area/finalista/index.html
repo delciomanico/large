@@ -3,7 +3,7 @@
     <h1 class="mb-4">Finalistas  </h1>
     <div class="row mb-3">
         <div class="col">
-            <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por BI">
+            <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por nº de Processo ou BI">
             
             <input type="hidden" id="curso" class="form-control" value="{{curso_id}}" >
             
@@ -17,28 +17,33 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Nº Processo</th>
                 <th>BI</th>
                 <th>Telef</th>
                 <th>Media</th>
+                <th>Estagio</th>
                 <th>Trabalho</th>
                 <th>Faculdade</th>
                 <th>Mestrado</th>
+                <th>Data Inicio</th>
                 <th>Data Termino</th>
                 <th>Ação</th>
             </tr>
         </thead>
         <tbody>
             {{#each finalista}}
-             {{#each this}}
              {{#if nome}}
             <tr>
                 <td>{{nome}}</td>
+                <td>{{processo}}</td>
                 <td>{{bi}}</td>
                 <td>{{tel}}</td>
                 <td>{{media}}</td>
+                <td>{{estagio}}</td>
                 <td>{{trabalho}}</td>
                 <td>{{faculdade}}</td>
                 <td>{{mestrado}}</td>
+                <td>{{start}}</td>
                 <td>{{end}}</td>
                 
                 <td>
@@ -50,7 +55,6 @@
                 </td>
             </tr>
             {{/if}}
-            {{/each}}
 
             {{else}}
             <tr>
@@ -99,12 +103,15 @@
         const row = document.createElement('tr');
         row.innerHTML = `
                 <td>${item.nome}</td>
+                <td>${item.processo}</td>
                 <td>${item.bi}</td>
                 <td>${item.tel}</td>
                 <td>${item.media}</td>
+                <td>${item.estagio}</td>
                 <td>${item.trabalho}</td>
                 <td>${item.faculdade}</td>
                 <td>${item.mestrado}</td>
+                <td>${item.start}</td>
                 <td>${item.end}</td>
                 
                 <td>

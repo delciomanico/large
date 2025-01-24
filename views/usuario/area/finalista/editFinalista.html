@@ -1,58 +1,112 @@
 {{>_container}}
 <h3 class="mb-4">Editar Finalista</h3>
-<div class="card">
-    {{#each finalista}}
 
-    {{#if nome}}
-    <div class="card-body">
-        <form action="/usuario/area/finalista/edit" method="post">
+    <div class="card w-100">
+      {{#each finalista}}
+        {{#if nome}}
+        <div class="card-body">
+          <h5 class="card-title mb-4">Editar Finalista</h5>
+          <form action="/usuario/area/finalista/edit" method="post">
             <input type="hidden" name="id" value="{{_id}}">
-            <label for="">Nome:</label>
-            <input type="text" name="nome" placeholder="Nome completo" required class="form-control" value="{{nome}}">
-            <label for="">BI: </label>
-            <input type="text" name="bi" placeholder="Numero do BI" required class="form-control" value="{{bi}}">
-            <label for="">Contacto: </label>
-            <input type="text" name="tel" placeholder="Numero de telefone"  class="form-control" value="{{tel}}">
-            <label for="">Data de inicio: </label>
-            <input type="date" name="start" id="" class="form-control" value="{{start}}" required data-="{{start}}">
-            <label for="">Data de termino: </label>
-            <input type="date" name="end" id="" class="form-control" value="{{end}}" required>
-            <label for="">Media final: </label>
-            <input type="number" name="media" id="" class="form-control" min="10" max="20" value="{{media}}">
-            <label for="">Curso: </label>
-            <select name="curso" id="" required class="custom-select">
-                
-                {{#each curso}}
-                
-                {{#if nome}}
-                <option value="{{_id}}">{{nome}}</option>
-                {{/if}}
-                {{else}}
-                <option value="0">Nenhum curso registrado</option>
-                {{/each}}
-            </select>
-            <label for="">Faculdade: </label>
-            <select name="faculdade" id=""  class="custom-select">
-                <option value=""></option>
-                <option value="sim">sim</option>
-                <option value="nao">nao</option>
-            </select>
-            <label for="">Mestrado: </label>
-            <select name="mestrado" id=""  class="custom-select">
-                <option value=""></option>
-                <option value="sim">sim</option>
-                <option value="nao">nao</option>
-            </select>
-            <label for="">Mercado de trabalho: </label>
-            <select name="trabalho" id=""  class="custom-select">
-                <option value=""></option>
-                <option value="sim">sim</option>
-                <option value="nao">nao</option>
-            </select>
+            
+            <div class="row">
+              <!-- Nome -->
+              <div class="form-group col-md-6">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nome" placeholder="Nome completo" required class="form-control" value="{{nome}}">
+              </div>
+  
+              <!-- BI -->
+              <div class="form-group col-md-6">
+                <label for="bi">BI</label>
+                <input type="text" name="bi" id="bi" placeholder="Número do BI" required class="form-control" value="{{bi}}">
+              </div>
+            </div>
+  
+            <div class="row">
+              <!-- Número de Processo -->
+              <div class="form-group col-md-6">
+                <label for="processo">Número de Processo</label>
+                <input type="text" name="processo" id="processo" placeholder="Número de Processo" required class="form-control" value="{{processo}}">
+              </div>
+  
+              <!-- Contacto -->
+              <div class="form-group col-md-6">
+                <label for="tel">Contacto</label>
+                <input type="text" name="tel" id="tel" placeholder="Número de telefone" class="form-control" value="{{tel}}">
+              </div>
+            </div>
             {{/if}}
             {{/each}}
-            
-            <button class="btn  mt-4" style="background-color: #2cb34e; color: #fff;">Cadastrar</button>
-        </form>
+            <div class="row">
+              <!-- Datas de Início e Término -->
+              <div class="form-group col-md-6">
+                <label for="start">Data de Início</label>
+                <input type="date" name="start" id="start" class="form-control" value="{{Start}}" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="end">Data de Término</label>
+                <input type="date" name="end" id="end" class="form-control" value="{{End}}" required>
+              </div>
+            </div>
+            {{#each finalista}}
+            {{#if nome}}
+            <div class="row">
+              <!-- Média Final -->
+              <div class="form-group col-md-6">
+                <label for="media">Média Final</label>
+                <input type="number" name="media" id="media" class="form-control" min="10" max="20" value="{{media}}">
+              </div>
+  
+              <!-- Curso -->
+              <div class="form-group col-md-6">
+                <label for="curso">Curso</label>
+                <select name="curso" id="curso" required class="custom-select">
+                  {{#each curso}}
+                    {{#if nome}}
+                    <option value="{{_id}}">{{nome}}</option>
+                    {{/if}}
+                  {{else}}
+                    <option value="0">Nenhum curso registrado</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+  
+            <div class="row">
+              <!-- Estagio -->
+              <div class="form-group col-md-4">
+                <label for="estagio">Estagio</label>
+                <input type="text" name="estagio" id="estagio" class="form-control" value="{{estagio}}">
+              </div>
+
+              <!-- Faculdade -->
+              <div class="form-group col-md-4">
+                <label for="faculdade">Faculdade</label>
+                <input type="text" name="faculdade" id="faculdade" class="form-control" value="{{faculdade}}">
+              </div>
+  
+              <!-- Mestrado -->
+              <div class="form-group col-md-4">
+                <label for="mestrado">Mestrado</label>
+                <input type="text" name="mestrado" id="mestrado" class="form-control" value="{{mestrado}}">
+              </div>
+  
+              <!-- Mercado de Trabalho -->
+              <div class="form-group col-md-4">
+                <label for="trabalho">Mercado de Trabalho</label>
+                <input type="text" name="trabalho" id="trabalho" class="form-control" value="{{trabalho}}">
+              </div>
+            </div>
+  
+            <!-- Botão Salvar -->
+            <div class="form-group text-right">
+              <button class="btn btn-success mt-3" type="submit">Salvar</button>
+            </div>
+          </form>
+        </div>
+        {{/if}}
+      {{/each}}
     </div>
-</div>
+
+  
